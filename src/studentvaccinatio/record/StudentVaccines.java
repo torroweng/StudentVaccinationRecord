@@ -4,8 +4,11 @@
  */
 package studentvaccinatio.record;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.PrivateKey;
 import java.security.PublicKey;
@@ -183,9 +186,9 @@ public class StudentVaccines extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
@@ -206,13 +209,13 @@ public class StudentVaccines extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton3)
-                        .addGap(39, 39, 39))))
+                        .addGap(39, 39, 39))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         pack();
@@ -245,18 +248,13 @@ String content = receive( cipherText, prvKey );
 System.out.println( "\n>>Receive and Decrypt Content: \n"+ content );
 
 // Open the file.
-        PrintWriter out = new PrintWriter("oceans.txt"); // Step 2
+        PrintWriter out = new PrintWriter("StudentVaccinesLedger.txt");
 
-        // Write the name of four oceans to the file
+// Write the name of four oceans to the file
         out.println(data+"|"+data1+"|"+data2+"|"+data3+"|"+data4+"|"+cipherText);
-//        out.println(data);
-//        out.println(data1);
-//        out.println(data2);   // Step 3
-//        out.println(data3);        
-//        out.println(data4);
 
         // Close the file.
-        out.close();  // Step 4
+        out.close();  
             } catch (Exception ex) {
                 Logger.getLogger(StudentVaccines.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -265,18 +263,7 @@ System.out.println( "\n>>Receive and Decrypt Content: \n"+ content );
 			//create
 			MyKeyPair.create();
 		}
- try {
-      File myObj = new File("oceans.txt");
-      Scanner myReader = new Scanner(myObj);  
-       while (myReader.hasNextLine()) {
-        String data = myReader.nextLine();
-        System.out.println(data);
-        jTextArea2.setText(data);
-       }
-      myReader.close();
-    } catch (FileNotFoundException e) {
-      System.out.println("An error occurred.");
-    } 
+
     
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -293,18 +280,25 @@ System.out.println( "\n>>Receive and Decrypt Content: \n"+ content );
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-         try {
-      File myObj = new File("oceans.txt");
-      Scanner myReader = new Scanner(myObj);  
-       while (myReader.hasNextLine()) {
-        String data = myReader.nextLine();
-        System.out.println(data);
-        jTextArea2.setText(data);
-       }
-      myReader.close();
-    } catch (FileNotFoundException e) {
-      System.out.println("An error occurred.");
-    } 
+
+File file = new File("StudentVaccinesLedger.txt");
+BufferedReader reader = null;
+try {
+	reader = new BufferedReader(new FileReader(file));
+	String text;
+	
+		            		
+	while ((text = reader.readLine()) != null) {
+		jTextArea2.setText(text);
+                
+	}
+	
+}
+catch (FileNotFoundException ex) {
+            Logger.getLogger(StudentVaccines.class.getName()).log(Level.SEVERE, null, ex);
+      } catch (IOException ex) {
+            Logger.getLogger(StudentVaccines.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
