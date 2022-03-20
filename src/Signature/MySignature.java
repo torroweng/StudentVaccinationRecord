@@ -1,10 +1,9 @@
 package Signature;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
+import java.security.NoSuchAlgorithmException;
 import java.security.Signature;
 import java.util.Base64;
-
-import javax.crypto.Cipher;
 
 public class MySignature {
 
@@ -21,8 +20,7 @@ public class MySignature {
 		try {
 			keygen = KeyPairGenerator.getInstance("RSA");
 			keyPair = keygen.generateKeyPair();
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (NoSuchAlgorithmException e) {
 		}
 	}
 	//==========================================================================
