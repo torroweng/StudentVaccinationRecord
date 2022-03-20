@@ -1,4 +1,4 @@
-package studentvaccinatio.record.KeyGenerator;
+package KeyGenerator;
 
 import java.security.Key;
 import java.util.Arrays;

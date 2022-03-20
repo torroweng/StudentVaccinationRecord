@@ -1,4 +1,4 @@
-package studentvaccinatio.record.Crypto;
+package Crypto;
 
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;

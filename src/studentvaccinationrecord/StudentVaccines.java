@@ -15,16 +15,15 @@ import java.io.PrintWriter;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.util.ArrayList;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import studentvaccinatio.record.Crypto.Asymmetric;
-import studentvaccinatio.record.Crypto.Crypto;
-import studentvaccinatio.record.Crypto.KeyAccess;
-import studentvaccinatio.record.KeyGenerator.MyKeyPair;
+import Crypto.Asymmetric;
+import Crypto.Crypto;
+import Crypto.KeyAccess;
+import KeyGenerator.MyKeyPair;
+import java.awt.HeadlessException;
 
 /**
  *
@@ -88,6 +87,8 @@ public class StudentVaccines extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Student Vaccination");
         setLocation(new java.awt.Point(800, 400));
+
+        txtVacExpDate.setToolTipText("");
 
         btnAdd.setText("Add");
         btnAdd.setEnabled(false);
@@ -155,7 +156,7 @@ public class StudentVaccines extends javax.swing.JFrame {
             }
         });
 
-        jLabel9.setText("Decrypted after Add data");
+        jLabel9.setText("Decrypted Vaccine Info after Add data");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -182,7 +183,7 @@ public class StudentVaccines extends javax.swing.JFrame {
                                         .addComponent(btnClear)
                                         .addGap(18, 18, 18)
                                         .addComponent(btnBack)))))))
-                .addContainerGap(199, Short.MAX_VALUE))
+                .addContainerGap(65, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -325,9 +326,9 @@ String dtEncryptData = txtaEncryptData.getText();
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         // TODO add your handling code here:
-        String search_name = txtStuId.getText();
+        String search_id = txtStuId.getText();
         //search_name is empty, show alert
-        if (search_name.isEmpty()) {
+        if (search_id.isEmpty()) {
             JOptionPane.showMessageDialog(this,"Please insert Student Id to search.");
 
         } else {
@@ -342,17 +343,18 @@ String dtEncryptData = txtaEncryptData.getText();
                 while ((data = br.readLine()) != null) {
                     studentvaccinesclass = new StudentVaccinesClass(data);
                     //if student id found, get other data
-                    if (studentvaccinesclass.getStuId().equals(search_name)) {
+                    if (studentvaccinesclass.getStuId().equals(search_id)) {
                         isFound = true;
                         //Show message
-                        JOptionPane.showMessageDialog(this,"Student "+search_name+" was already taken vaccine before. ");
+                        JOptionPane.showMessageDialog(this,"Student "+search_id+" was already taken vaccine before. ");
                         //label,textbox and button to enable or disable
 
                         txtStuName.setText(studentvaccinesclass.getStuName());
                         txtVacName.setText(studentvaccinesclass.getVacName());
                         txtVacBatch.setText(studentvaccinesclass.getVacBatch());
                         txtVacExpDate.setText(studentvaccinesclass.getVacExpDate());
-                        txtaEncryptData.setText(studentvaccinesclass.getEncryptData());                   
+                        txtaEncryptData.setText(studentvaccinesclass.getEncryptData());
+                        txtStuId.setEditable(false);
                         txtStuId.setEditable(false);
                         txtStuName.setEditable(false);
                         txtVacName.setEditable(false);
@@ -364,7 +366,7 @@ String dtEncryptData = txtaEncryptData.getText();
                     }
                 }
                 //If data not exist in system
-                JOptionPane.showMessageDialog(this, "Student "+search_name+" WAS NOT taken vaccine yet. ");
+                JOptionPane.showMessageDialog(this, "Student "+search_id+" WAS NOT taken vaccine yet. ");
                 
                 //label,textbox and button to enable or disable
                 txtStuId.setEditable(false);
@@ -372,28 +374,11 @@ String dtEncryptData = txtaEncryptData.getText();
                 btnAdd.setEnabled(true);
             } catch (FileNotFoundException ex) {
             } catch (IOException ex) {
-            } catch (Exception ex) {
+            } catch (HeadlessException ex) {
                 Logger.getLogger(StudentVaccines.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        //File file = new File("StudentVaccinesLedger.txt");
-        //BufferedReader reader = null;
-        //try {
-            //	reader = new BufferedReader(new FileReader(file));
-            //	String text;
-            //
-            //
-            //	while ((text = reader.readLine()) != null) {
-                //		jTextArea2.setText(text);
-                //
-                //	}
-            //
-            //}
-        //catch (FileNotFoundException ex) {
-            //            Logger.getLogger(StudentVaccines.class.getName()).log(Level.SEVERE, null, ex);
-            //      } catch (IOException ex) {
-            //            Logger.getLogger(StudentVaccines.class.getName()).log(Level.SEVERE, null, ex);
-            //        }
+    
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
@@ -473,11 +458,11 @@ String dtEncryptData = txtaEncryptData.getText();
             s.useDelimiter(",");
             while(s.hasNext()){        
                 ArrayList<StudentVaccinesClass> studentlist = new ArrayList<>();
-                String line1 = s.next();    //name
-                String line2 = s.next();      //pin
-                String line3 = s.next();      //email  
-                String line4 = s.next(); //hpnumber
-                String line5 = s.next(); //address
+                String line1 = s.next();    
+                String line2 = s.next();      
+                String line3 = s.next();      
+                String line4 = s.next(); 
+                String line5 = s.next(); 
                 String line6 = s.next();
                 StudentVaccinesClass student = new StudentVaccinesClass(line1,line2,line3,line4,line5,line6);
                 studentlist.add(student);

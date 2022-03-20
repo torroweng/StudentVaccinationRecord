@@ -1,4 +1,4 @@
-package studentvaccinatio.record.KeyGenerator;
+package KeyGenerator;
 
 import java.io.File;
 import java.io.IOException;

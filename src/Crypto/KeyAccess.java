@@ -1,4 +1,4 @@
-package studentvaccinatio.record.Crypto;
+package Crypto;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
